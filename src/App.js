@@ -20,8 +20,8 @@ function App() {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">Oracle-GPT</h1>
-      <p>Powered by GPT-3.5 Turbo</p>
+      <h1 className="text-2xl font-bold">Oracle-GPT</h1>
+      <p classname='mb-4'>Powered by GPT-3.5 Turbo</p>
       <img src="/oracle.jpg" alt="Oracle" />
       <div className="flex w-full max-w-md">
         <input
