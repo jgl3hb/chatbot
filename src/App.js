@@ -6,16 +6,16 @@ function App() {
   const [conversation, setConversation] = useState([]);
 
   const sendMessage = async () => {
-    const response = await fetch('http://localhost:3001/chat', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ message: input })
-    });
-    const data = await response.json();
-    setConversation([...conversation, { role: 'User', content: input }, { role: 'Oracle', content: data.reply }]);
-    setInput('');
+    try {
+      const response = await axios.post('/api/chat', {
+        message: input
+      });
+      const data = response.data;
+      setConversation([...conversation, { role: 'User', content: input }, { role: 'Oracle', content: data.reply }]);
+      setInput('');
+    } catch (error) {
+      console.error('Error sending message:', error);
+    }
   };
 
   return (
@@ -34,7 +34,7 @@ function App() {
       </div>
       <div className="mb-4 flex flex-col items-center w-full max-w-md">
         {conversation.map((msg, index) => (
-          <p key={index} className={`self-${msg.role === 'user' ? 'end' : 'start'} bg-${msg.role === 'user' ? 'blue-300' : 'green-300'} p-2 rounded my-1`}>
+          <p key={index} className={`self-${msg.role.toLowerCase() === 'user' ? 'end' : 'start'} bg-${msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'} p-2 rounded my-1`}>
             <b>{msg.role}:</b> {msg.content}
           </p>
         ))}
@@ -42,6 +42,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;
