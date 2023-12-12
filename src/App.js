@@ -27,7 +27,7 @@ function App() {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           className="flex-1 p-2 border-2 border-gray-300 rounded-l"
-          placeholder="Type your message..."
+          placeholder="Ask me anything"
         />
         <button onClick={sendMessage} className="bg-blue-500 text-white px-4 rounded-r">
           Send
