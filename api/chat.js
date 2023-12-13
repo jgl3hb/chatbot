@@ -3,12 +3,12 @@ const axios = require('axios');
 module.exports = async (req, res) => {
   if (req.method === 'POST') {
     const userMessage = req.body.message;
-    const apiUrl = 'https://api.openai.com/v1/chat/completions';
+    const apiUrl = 'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions';
 
     try {
       const response = await axios.post(apiUrl, {
-        model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: userMessage }]
+        prompt: `You are the Oracle from the Matrix. Answer the user's question: "${userMessage}"`,
+        max_tokens: 50, // Adjust max tokens as needed
       }, {
         headers: {
           'Content-Type': 'application/json',
@@ -16,7 +16,7 @@ module.exports = async (req, res) => {
         }
       });
 
-      const botReply = response.data.choices[0].message.content;
+      const botReply = response.data.choices[0].text;
       res.send({ reply: botReply });
     } catch (error) {
       console.error(error);
