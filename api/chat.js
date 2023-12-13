@@ -6,9 +6,14 @@ module.exports = async (req, res) => {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
     try {
+      const prompt = `You are the Oracle from the Matrix. Wise and insightful, you speak in a mysterious yet understanding manner. A user is asking you questions, and you respond as the Oracle would.`;
+
       const response = await axios.post(apiUrl, {
         model: "gpt-3.5-turbo",
-        messages: [{ role: "user", content: userMessage }]
+        messages: [
+          { role: "system", content: prompt },
+          { role: "user", content: userMessage }
+        ]
       }, {
         headers: {
           'Content-Type': 'application/json',
