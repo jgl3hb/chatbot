@@ -46,7 +46,7 @@ function App() {
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           className="flex-1 p-2 border-2 border-gray-300 rounded-l"
-          placeholder='Ask me anything, like "Are we in the Matrix?"'
+          placeholder='Are we in the Matrix?'
         />
         <button onClick={sendMessage} className="bg-blue-500 text-white px-4 rounded-r">
           Send
