@@ -7,7 +7,7 @@ module.exports = async (req, res) => {
     try {
       const response = await axios.post(apiUrl, {
         prompt: `You are the Oracle from the Matrix. Answer the user's question: "${userMessage}"`,
-        max_tokens: 50, // Adjust max tokens as needed
+        max_tokens: 5000, // Adjust max tokens as needed
       }, {
         headers: {
           'Content-Type': 'application/json',
