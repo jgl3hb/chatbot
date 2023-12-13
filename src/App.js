@@ -32,6 +32,14 @@ function App() {
       <h1 className="text-2xl font-bold">Oracle-GPT</h1>
       <p className='mb-4'>Powered by GPT-3.5 Turbo</p>
       <img src="/oracle.jpg" alt="Oracle" />
+      {isLoading && <p>Hmm...</p>} 
+      <div className="mb-4 flex flex-col items-center w-full max-w-md">
+        {conversation.map((msg, index) => (
+          <p key={index} className={`self-${msg.role.toLowerCase() === 'user' ? 'end' : 'start'} bg-${msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'} p-2 rounded my-1`}>
+            <b>{msg.role}:</b> {msg.content}
+          </p>
+        ))}
+      </div>
       <div className="flex w-full max-w-md">
         <input
           value={input}
@@ -43,14 +51,6 @@ function App() {
         <button onClick={sendMessage} className="bg-blue-500 text-white px-4 rounded-r">
           Send
         </button>
-      </div>
-      {isLoading && <p>Hmm...</p>} 
-      <div className="mb-4 flex flex-col items-center w-full max-w-md">
-        {conversation.map((msg, index) => (
-          <p key={index} className={`self-${msg.role.toLowerCase() === 'user' ? 'end' : 'start'} bg-${msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'} p-2 rounded my-1`}>
-            <b>{msg.role}:</b> {msg.content}
-          </p>
-        ))}
       </div>
     </div>
   );
