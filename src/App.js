@@ -44,7 +44,7 @@ function App() {
           Send
         </button>
       </div>
-      {isLoading && <p>Thinking...</p>} 
+      {isLoading && <p>Hmm...</p>} 
       <div className="mb-4 flex flex-col items-center w-full max-w-md">
         {conversation.map((msg, index) => (
           <p key={index} className={`self-${msg.role.toLowerCase() === 'user' ? 'end' : 'start'} bg-${msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'} p-2 rounded my-1`}>
