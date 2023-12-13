@@ -3,8 +3,7 @@ const axios = require('axios');
 module.exports = async (req, res) => {
   if (req.method === 'POST') {
     const userMessage = req.body.message;
-    const apiUrl = 'https://api.openai.com/v1/engines/gpt-3.5-turbo/completions';
-
+    const apiUrl = 'https://api.openai.com/v1/chat/completions';
     try {
       const response = await axios.post(apiUrl, {
         prompt: `You are the Oracle from the Matrix. Answer the user's question: "${userMessage}"`,
