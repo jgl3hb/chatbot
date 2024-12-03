@@ -56,7 +56,7 @@ function App() {
               msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'
             } p-2 rounded my-1 w-full`}
           >
-            <b>{msg.role}:</b> {msg.content}
+            <b>{msg.role}:</b> {msg.content || 'No content'}
           </p>
         ))}
       </div>
@@ -64,7 +64,12 @@ function App() {
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          onKeyDown={handleKeyDown}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              sendMessage();
+            }
+          }}
           className="flex-1 p-2 border-2 border-gray-300 rounded-l"
           placeholder="Ask Roscoe..."
         />
