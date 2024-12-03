@@ -43,7 +43,7 @@ function App() {
   
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      <img src="/roscoe.png" alt="Oracle" className="w-32 h-32" />
+      <img src="/roscoe.png" alt="Oracle" className="w-32" />
       <div className="w-full max-w-md">
         <div className="mb-4">
           {conversation.map((msg, index) => (
