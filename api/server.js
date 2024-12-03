@@ -9,7 +9,7 @@ const app = express();
 const port = 3001;
 
 const corsOptions = {
-  origin: ['http://localhost:3000', 'https://your-app.vercel.app'], // Include your Vercel URL
+  origin: ['http://localhost:3000', 'https://chatbot-psi-pink.vercel.app/'], // Include your Vercel URL
   methods: 'GET,POST',
   optionsSuccessStatus: 200
 };
