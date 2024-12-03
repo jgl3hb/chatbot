@@ -16,7 +16,6 @@ function App() {
       const response = await axios.post('/api/chat', { message: input });
       const data = response.data;
   
-      // Validate response data before updating state
       if (!data.reply) {
         throw new Error('Invalid response from server');
       }
