@@ -1,7 +1,5 @@
-// /home/jgl3hb/hack/chatbot/src/App.js
 import React, { useState } from 'react';
 import axios from 'axios';
-// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [input, setInput] = useState('');
@@ -17,7 +15,11 @@ function App() {
     try {
       const response = await axios.post('/api/chat', { message: input });
       const data = response.data;
-      setConversation([...conversation, { role: 'User', content: input }, { role: 'Oracle', content: data.reply }]);
+      setConversation((prev) => [
+        ...prev,
+        { role: 'User', content: input },
+        { role: 'Roscoe', content: data.reply },
+      ]);
       setInput('');
     } catch (error) {
       console.error('Error sending message:', error);
@@ -35,15 +37,17 @@ function App() {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      {/* <h1 className="text-2xl font-bold">Ask Roscoe</h1> */}
-      <img 
-        className="w-32"
-        src="/roscoe.png" alt="Oracle" />
+      <img className="w-32 mb-4" src="/roscoe.png" alt="Roscoe the Dog" />
       {isLoading && <p>Loading...</p>}
       {error && <p className="text-red-500">{error}</p>}
       <div className="mb-4 flex flex-col items-center w-full max-w-md">
         {conversation.map((msg, index) => (
-          <p key={index} className={`self-${msg.role.toLowerCase() === 'user' ? 'end' : 'start'} bg-${msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'} p-2 rounded my-1`}>
+          <p
+            key={index}
+            className={`self-${msg.role.toLowerCase() === 'user' ? 'end' : 'start'} bg-${
+              msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'
+            } p-2 rounded my-1 w-full`}
+          >
             <b>{msg.role}:</b> {msg.content}
           </p>
         ))}
@@ -56,8 +60,12 @@ function App() {
           className="flex-1 p-2 border-2 border-gray-300 rounded-l"
           placeholder="Ask Roscoe..."
         />
-        <button onClick={sendMessage} className="bg-blue-500 text-white px-4 rounded-r">
-          Send
+        <button
+          onClick={sendMessage}
+          disabled={isLoading}
+          className={`bg-blue-500 text-white px-4 rounded-r ${isLoading ? 'opacity-50' : ''}`}
+        >
+          {isLoading ? 'Sending...' : 'Send'}
         </button>
       </div>
     </div>
