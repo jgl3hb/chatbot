@@ -16,21 +16,19 @@ function App() {
       const response = await axios.post('/api/chat', { message: input });
       const data = response.data;
 
-      if (!data.reply || typeof data.reply !== 'string') {
-        throw new Error('Invalid response from the server');
+      if (!data.reply) {
+        throw new Error('No response from server');
       }
 
       setConversation((prev) => [
         ...prev,
         { role: 'User', content: input },
-        { role: 'Roscoe', content: data.reply },
+        { role: 'Assistant', content: data.reply },
       ]);
       setInput('');
-    } catch (error) {
-      console.error('Error sending message:', error);
-      setError(
-        error.response?.data?.error || 'An error occurred. Please try again later.'
-      );
+    } catch (err) {
+      console.error('Error sending message:', err);
+      setError('An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
@@ -38,41 +36,28 @@ function App() {
 
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      <img className="w-32 mb-4" src="/roscoe.png" alt="Roscoe the Dog" />
-      {isLoading && <p>Loading...</p>}
-      {error && <p className="text-red-500">{error}</p>}
-      <div className="mb-4 flex flex-col items-center w-full max-w-md">
-        {conversation.map((msg, index) => (
-          <p
-            key={index}
-            className={`self-${msg.role.toLowerCase() === 'user' ? 'end' : 'start'} bg-${
-              msg.role.toLowerCase() === 'user' ? 'blue-300' : 'green-300'
-            } p-2 rounded my-1 w-full`}
-          >
-            <b>{msg.role}:</b> {msg.content || 'No content'}
-          </p>
-        ))}
-      </div>
-      <div className="flex w-full max-w-md">
-        <input
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          onKeyDown={(e) => {
-            if (e.key === 'Enter') {
-              e.preventDefault();
-              sendMessage();
-            }
-          }}
-          className="flex-1 p-2 border-2 border-gray-300 rounded-l"
-          placeholder="Ask Roscoe..."
-        />
-        <button
-          onClick={sendMessage}
-          disabled={isLoading}
-          className={`bg-blue-500 text-white px-4 rounded-r ${isLoading ? 'opacity-50' : ''}`}
-        >
-          {isLoading ? 'Sending...' : 'Send'}
-        </button>
+      <h1 className="text-2xl font-bold mb-4">Chat with Assistant</h1>
+      <div className="w-full max-w-md">
+        <div className="mb-4">
+          {conversation.map((msg, index) => (
+            <p key={index} className={`my-2 p-2 rounded ${msg.role === 'User' ? 'bg-blue-300' : 'bg-green-300'}`}>
+              <b>{msg.role}:</b> {msg.content}
+            </p>
+          ))}
+        </div>
+        {error && <p className="text-red-500">{error}</p>}
+        {isLoading && <p className="text-gray-500">Loading...</p>}
+        <div className="flex">
+          <input
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Type your message..."
+            className="flex-grow p-2 border rounded-l"
+          />
+          <button onClick={sendMessage} disabled={isLoading} className="bg-blue-500 text-white px-4 rounded-r">
+            Send
+          </button>
+        </div>
       </div>
     </div>
   );
