@@ -43,7 +43,7 @@ function App() {
   
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
-      <h1 className="text-2xl font-bold mb-4">Chat with Assistant</h1>
+      <img src="/roscoe.png" alt="Oracle" className="w-32 h-32" />
       <div className="w-full max-w-md">
         <div className="mb-4">
           {conversation.map((msg, index) => (
@@ -58,7 +58,7 @@ function App() {
           <input
             value={input}
             onChange={(e) => setInput(e.target.value)}
-            placeholder="Type your message..."
+            placeholder="Ask Roscoe..."
             className="flex-grow p-2 border rounded-l"
           />
           <button onClick={sendMessage} disabled={isLoading} className="bg-blue-500 text-white px-4 rounded-r">
