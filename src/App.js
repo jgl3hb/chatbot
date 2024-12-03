@@ -11,10 +11,16 @@ function App() {
     if (!input.trim()) return;
     setIsLoading(true);
     setError(null);
-
+  
     try {
       const response = await axios.post('/api/chat', { message: input });
       const data = response.data;
+  
+      // Validate response data before updating state
+      if (!data.reply) {
+        throw new Error('Invalid response from server');
+      }
+  
       setConversation((prev) => [
         ...prev,
         { role: 'User', content: input },
@@ -22,7 +28,7 @@ function App() {
       ]);
       setInput('');
     } catch (error) {
-      console.error('Error sending message:', error.response || error.message);
+      console.error('Error sending message:', error);
       setError(
         error.response?.data?.error || 'Failed to send message. Please try again later.'
       );
@@ -30,7 +36,7 @@ function App() {
       setIsLoading(false);
     }
   };
-
+  
   const handleKeyDown = (event) => {
     if (event.key === 'Enter') {
       event.preventDefault();
