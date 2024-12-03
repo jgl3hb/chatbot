@@ -15,7 +15,7 @@ function App() {
     setError(null);
 
     try {
-      const response = await axios.post('http://localhost:3001/api/chat', { message: input });
+      const response = await axios.post('/api/chat', { message: input });
       const data = response.data;
       setConversation([...conversation, { role: 'User', content: input }, { role: 'Oracle', content: data.reply }]);
       setInput('');
