@@ -22,10 +22,13 @@ function App() {
       ]);
       setInput('');
     } catch (error) {
-      console.error('Error sending message:', error);
-      setError('Failed to send message. Please try again later.');
+      console.error('Error sending message:', error.response || error.message);
+      setError(
+        error.response?.data?.error || 'Failed to send message. Please try again later.'
+      );
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const handleKeyDown = (event) => {

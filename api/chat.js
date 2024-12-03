@@ -11,7 +11,7 @@ export default async function handler(req, res) {
       const response = await axios.post(
         apiUrl,
         {
-          model: 'gpt-3.5-turbo', // Use 'gpt-4' if accessible
+          model: 'gpt-3.5-turbo', // Replace with 'gpt-4' if available
           messages: [
             { role: 'system', content: prompt },
             { role: 'user', content: userMessage },
@@ -28,9 +28,10 @@ export default async function handler(req, res) {
       const botReply = response.data.choices[0].message.content;
       res.status(200).json({ reply: botReply });
     } catch (error) {
-      console.error('Error:', error.response?.data || error.message);
+      console.error('Full error:', error);
+      console.error('Error response:', error.response?.data || 'No response data');
       res.status(500).json({
-        error: 'An error occurred',
+        error: 'Internal server error',
         details: error.response?.data || error.message,
       });
     }
