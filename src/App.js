@@ -29,7 +29,7 @@ function App() {
     } catch (error) {
       console.error('Error sending message:', error);
       setError(
-        error.response?.data?.error || 'Failed to send message. Please try again later.'
+        error.response?.data?.error || 'An error occurred. Please try again later.'
       );
     } finally {
       setIsLoading(false);
