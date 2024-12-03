@@ -11,15 +11,15 @@ function App() {
     if (!input.trim()) return;
     setIsLoading(true);
     setError(null);
-  
+
     try {
       const response = await axios.post('/api/chat', { message: input });
       const data = response.data;
-  
-      if (!data.reply) {
-        throw new Error('Invalid response from server');
+
+      if (!data.reply || typeof data.reply !== 'string') {
+        throw new Error('Invalid response from the server');
       }
-  
+
       setConversation((prev) => [
         ...prev,
         { role: 'User', content: input },
@@ -33,13 +33,6 @@ function App() {
       );
     } finally {
       setIsLoading(false);
-    }
-  };
-  
-  const handleKeyDown = (event) => {
-    if (event.key === 'Enter') {
-      event.preventDefault();
-      sendMessage();
     }
   };
 
