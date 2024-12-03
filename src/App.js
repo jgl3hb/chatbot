@@ -47,7 +47,7 @@ function App() {
       <div className="w-full max-w-md">
         <div className="mb-4">
           {conversation.map((msg, index) => (
-            <p key={index} className={`my-2 p-2 rounded ${msg.role === 'User' ? 'bg-secondaryBlue' : 'bg-primaryBlue'}`}>
+            <p key={index} className={`my-2 p-2 rounded ${msg.role === 'User' ? 'bg-primaryBlue' : 'bg-secondaryBlue'}`}>
               <b>{msg.role}:</b> {msg.content}
             </p>
           ))}
