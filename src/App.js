@@ -1,7 +1,7 @@
 // /home/jgl3hb/hack/chatbot/src/App.js
 import React, { useState } from 'react';
 import axios from 'axios';
-import 'bootstrap/dist/css/bootstrap.min.css';
+// import 'bootstrap/dist/css/bootstrap.min.css';
 
 function App() {
   const [input, setInput] = useState('');
