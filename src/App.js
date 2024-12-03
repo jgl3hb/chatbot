@@ -11,15 +11,22 @@ function App() {
     if (!input.trim()) return;
     setIsLoading(true);
     setError(null);
-
+  
     try {
-      const response = await axios.post('/api/chat', { message: input });
-      const data = response.data;
-
-      if (!data.reply) {
-        throw new Error('No response from server');
+      const response = await fetch('/api/chat', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ message: input }),
+      });
+  
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || 'Failed to send message');
       }
-
+  
+      const data = await response.json();
       setConversation((prev) => [
         ...prev,
         { role: 'User', content: input },
@@ -28,12 +35,12 @@ function App() {
       setInput('');
     } catch (err) {
       console.error('Error sending message:', err);
-      setError('An error occurred. Please try again.');
+      setError(err.message || 'An error occurred. Please try again.');
     } finally {
       setIsLoading(false);
     }
   };
-
+  
   return (
     <div className="flex flex-col items-center min-h-screen bg-gray-100 p-4">
       <h1 className="text-2xl font-bold mb-4">Chat with Assistant</h1>
