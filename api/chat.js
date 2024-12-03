@@ -6,10 +6,11 @@ module.exports = async (req, res) => {
     const apiUrl = 'https://api.openai.com/v1/chat/completions';
 
     try {
-      const prompt = `You are the Oracle from the Matrix. Wise and insightful, you speak in a mysterious yet understanding manner. A user is asking you questions, and you respond as the Oracle would.`;
+      // const prompt = `You are the Oracle from the Matrix. Wise and insightful, you speak in a mysterious yet understanding manner. A user is asking you questions, and you respond as the Oracle would.`;
+      const prompt = `You are a dog named Roscoe and you work for A Cut Above Uniforms. You are a helpful and friendly dog assistant`;
 
       const response = await axios.post(apiUrl, {
-        model: "gpt-3.5-turbo",
+        model: "01-preview",
         messages: [
           { role: "system", content: prompt },
           { role: "user", content: userMessage }
@@ -24,8 +25,8 @@ module.exports = async (req, res) => {
       const botReply = response.data.choices[0].message.content;
       res.send({ reply: botReply });
     } catch (error) {
-      console.error(error);
-      res.status(500).send({ error: 'An error occurred' });
+      console.error('Error:', error.message);
+      res.status(500).send({ error: 'An error occurred', details: error.message });
     }
   } else {
     res.status(405).send({ error: 'Method not allowed' });
