@@ -30,7 +30,7 @@ function App() {
       setConversation((prev) => [
         ...prev,
         { role: 'User', content: input },
-        { role: 'Assistant', content: data.reply },
+        { role: 'Roscoe', content: data.reply },
       ]);
       setInput('');
     } catch (err) {
@@ -47,7 +47,7 @@ function App() {
       <div className="w-full max-w-md">
         <div className="mb-4">
           {conversation.map((msg, index) => (
-            <p key={index} className={`my-2 p-2 rounded ${msg.role === 'User' ? 'bg-blue-300' : 'bg-green-300'}`}>
+            <p key={index} className={`my-2 p-2 rounded ${msg.role === 'User' ? 'bg-secondaryBlue' : 'bg-primaryBlue'}`}>
               <b>{msg.role}:</b> {msg.content}
             </p>
           ))}

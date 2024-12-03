@@ -4,7 +4,14 @@ module.exports = {
   // or set it to 'media' or 'class' based on your preference
   darkMode: 'media', // or 'class'
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        primaryBlue: '#017fae',
+        secondaryBlue: '#02b9f1',
+        darkBlue: '#032046',
+        hoverYellow: '#fff2cc',
+      },
+    },
   },
   variants: {
     extend: {},
