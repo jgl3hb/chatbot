@@ -12,7 +12,7 @@ export default async function handler(req, res) {
       const response = await axios.post(
         apiUrl,
         {
-          model: 'gpt-4o',
+          model: 'gpt-3.5-turbo', // Use 'gpt-4' if you have access
           messages: [
             { role: 'system', content: prompt },
             { role: 'user', content: userMessage },
@@ -29,10 +29,11 @@ export default async function handler(req, res) {
       const botReply = response.data.choices[0].message.content;
       res.status(200).json({ reply: botReply });
     } catch (error) {
-      console.error('Error:', error.message);
-      res
-        .status(500)
-        .json({ error: 'An error occurred', details: error.message });
+      console.error('Error:', error.response ? error.response.data : error.message);
+      res.status(500).json({
+        error: 'An error occurred',
+        details: error.response ? error.response.data : error.message,
+      });
     }
   } else {
     res.status(405).json({ error: 'Method not allowed' });
